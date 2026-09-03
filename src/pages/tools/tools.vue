@@ -77,28 +77,31 @@ function onLunarConfirm(payload: { indexs?: number[] }) {
 
 <template>
   <view class="page">
+    <text class="page-lead">有些距离，用天数量一量就好。</text>
+
     <view class="card block">
-      <text class="section-title">计算两个日期相差天数</text>
+      <text class="section-title">两个日子，隔了多久</text>
       <view class="row" @click="showStart = true">
-        <text class="muted">起始日期</text>
-        <text>{{ formatPickerDate(startValue) }}</text>
+        <text class="muted">从这一天</text>
+        <text class="row__value">{{ formatPickerDate(startValue) }}</text>
       </view>
       <view class="row" @click="showEnd = true">
-        <text class="muted">结束日期</text>
-        <text>{{ formatPickerDate(endValue) }}</text>
+        <text class="muted">到那一天</text>
+        <text class="row__value">{{ formatPickerDate(endValue) }}</text>
       </view>
       <view class="result">
         <text class="result__num">{{ absGap }}</text>
+        <text class="result__unit">天</text>
         <text class="result__desc">
           相差 {{ absGap }} 天
-          <text v-if="dayGap !== 0">，{{ dayGap > 0 ? '结束日更晚' : '结束日更早' }}</text>
+          <text v-if="dayGap !== 0">，{{ dayGap > 0 ? '后一天更晚' : '后一天更早' }}</text>
         </text>
       </view>
     </view>
 
     <view class="card block">
-      <text class="section-title">公历农历日期换算</text>
-      <text class="hint">只输出对应日期，不提供宜忌、吉凶或其他测算内容。</text>
+      <text class="section-title">公历 · 农历</text>
+      <text class="hint">只换算日期本身，不看宜忌吉凶。</text>
       <view class="field__tabs">
         <view
           class="field__tab"
@@ -114,18 +117,18 @@ function onLunarConfirm(payload: { indexs?: number[] }) {
 
       <view v-if="convertMode === 'solarToLunar'" class="row" @click="showConvertSolar = true">
         <text class="muted">公历日期</text>
-        <text>{{ formatPickerDate(convertSolar) }}</text>
+        <text class="row__value">{{ formatPickerDate(convertSolar) }}</text>
       </view>
       <view v-else class="row" @click="showLunarPicker = true">
         <text class="muted">农历日期</text>
-        <text>{{ lunarYear }}年{{ lunarLeap ? '闰' : '' }}{{ lunarMonth }}月{{ lunarDay }}日</text>
+        <text class="row__value">{{ lunarYear }}年{{ lunarLeap ? '闰' : '' }}{{ lunarMonth }}月{{ lunarDay }}日</text>
       </view>
       <view v-if="convertMode === 'lunarToSolar'" class="leap-row">
         <text class="muted">按闰月换算</text>
-        <switch :checked="lunarLeap" color="#2F6B5A" @change="onLeapChange" />
+        <switch :checked="lunarLeap" color="#B54738" @change="onLeapChange" />
       </view>
-      <view class="result">
-        <text class="result__desc">{{ convertResult }}</text>
+      <view class="result result--plain">
+        <text class="result__desc result__desc--strong">{{ convertResult }}</text>
       </view>
     </view>
 
@@ -166,8 +169,17 @@ function onLunarConfirm(payload: { indexs?: number[] }) {
 </template>
 
 <style scoped>
+.page-lead {
+  display: block;
+  padding: 12rpx 8rpx 24rpx;
+  font-size: 28rpx;
+  color: #9a7366;
+  letter-spacing: 1rpx;
+  line-height: 1.6;
+}
+
 .block {
-  margin-bottom: 20rpx;
+  margin-bottom: 24rpx;
 }
 
 .row,
@@ -176,40 +188,65 @@ function onLunarConfirm(payload: { indexs?: number[] }) {
   justify-content: space-between;
   align-items: center;
   padding: 22rpx 0;
-  border-bottom: 1rpx solid #f0eeea;
+  border-bottom: 1rpx solid rgba(141, 90, 62, 0.12);
+}
+
+.row__value {
+  color: #3d2c26;
 }
 
 .hint {
   display: block;
   font-size: 22rpx;
-  color: #9a958f;
-  margin-bottom: 16rpx;
-  line-height: 1.5;
+  color: #c4a394;
+  margin: 8rpx 0 16rpx;
+  line-height: 1.6;
 }
 
 .result {
-  padding-top: 24rpx;
+  padding-top: 28rpx;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.result--plain {
+  display: block;
 }
 
 .result__num {
-  display: block;
-  font-size: 64rpx;
+  font-size: 72rpx;
   font-weight: 700;
-  color: #2f6b5a;
+  color: #b54738;
   line-height: 1;
+  font-family: 'Times New Roman', 'Songti SC', serif;
+}
+
+.result__unit {
+  margin-left: 10rpx;
+  font-size: 28rpx;
+  color: #9a7366;
+  letter-spacing: 2rpx;
 }
 
 .result__desc {
   display: block;
-  margin-top: 8rpx;
+  width: 100%;
+  margin-top: 10rpx;
   font-size: 26rpx;
-  color: #5c5854;
+  color: #9a7366;
+}
+
+.result__desc--strong {
+  color: #3d2c26;
+  font-size: 32rpx;
+  letter-spacing: 1rpx;
 }
 
 .field__tabs {
   display: flex;
-  background: #f4f2ee;
-  border-radius: 12rpx;
+  background: #f3e0d0;
+  border-radius: 16rpx;
   padding: 6rpx;
   margin-bottom: 8rpx;
 }
@@ -219,14 +256,14 @@ function onLunarConfirm(payload: { indexs?: number[] }) {
   text-align: center;
   height: 64rpx;
   line-height: 64rpx;
-  border-radius: 10rpx;
+  border-radius: 12rpx;
   font-size: 26rpx;
-  color: #6b6660;
+  color: #9a7366;
 }
 
 .field__tab--on {
-  background: #fff;
-  color: #2f6b5a;
+  background: #fff8f1;
+  color: #b54738;
   font-weight: 600;
 }
 </style>

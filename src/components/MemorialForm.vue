@@ -166,7 +166,7 @@ function onRepeatChange(event: Event) {
 
 function onSubmit() {
   if (!form.name.trim()) {
-    uni.showToast({ title: '请填写事件名称', icon: 'none' })
+    uni.showToast({ title: '请填写这件事叫什么', icon: 'none' })
     return
   }
   emit('submit', {
@@ -185,19 +185,20 @@ function onSubmit() {
 
 <template>
   <view class="memorial-form">
+    <text class="form-lead">把这件事，写进这一页。</text>
     <view class="card form-card">
       <view class="field">
-        <text class="field__label">事件名称</text>
+        <text class="field__label">这件事</text>
         <input
           v-model="form.name"
           class="field__input"
           maxlength="20"
-          placeholder="例如：相识、生日、结婚"
+          placeholder="相识、生日、结婚纪念日…"
         />
       </view>
 
       <view class="field">
-        <text class="field__label">日期类型</text>
+        <text class="field__label">怎么记日子</text>
         <view class="field__tabs">
           <view
             class="field__tab"
@@ -221,22 +222,22 @@ function onSubmit() {
       </view>
 
       <view class="field field--row">
-        <text class="field__label">每年重复</text>
-        <switch :checked="form.yearlyRepeat" color="#2F6B5A" @change="onRepeatChange" />
+        <text class="field__label">每年都要记得</text>
+        <switch :checked="form.yearlyRepeat" color="#B54738" @change="onRepeatChange" />
       </view>
 
       <view class="field">
-        <text class="field__label">备注</text>
+        <text class="field__label">想说的话</text>
         <textarea
           v-model="form.note"
           class="field__textarea"
           maxlength="80"
-          placeholder="选填，仅自己可见"
+          placeholder="写给自己看的一句，选填"
         />
       </view>
     </view>
 
-    <button class="submit-btn" @click="onSubmit">保存</button>
+    <button class="submit-btn" @click="onSubmit">收下这一天</button>
 
     <u-datetime-picker
       :show="showSolarPicker"
@@ -262,13 +263,21 @@ function onSubmit() {
 </template>
 
 <style scoped>
+.form-lead {
+  display: block;
+  padding: 12rpx 8rpx 24rpx;
+  font-size: 30rpx;
+  color: #9a7366;
+  letter-spacing: 2rpx;
+}
+
 .form-card {
-  padding: 8rpx 28rpx 12rpx;
+  padding: 8rpx 8rpx 12rpx;
 }
 
 .field {
-  padding: 28rpx 0;
-  border-bottom: 1rpx solid #f0eeea;
+  padding: 28rpx 20rpx;
+  border-bottom: 1rpx solid rgba(141, 90, 62, 0.12);
 }
 
 .field:last-child {
@@ -283,9 +292,10 @@ function onSubmit() {
 
 .field__label {
   display: block;
-  font-size: 26rpx;
-  color: #8a8580;
+  font-size: 24rpx;
+  color: #9a7366;
   margin-bottom: 12rpx;
+  letter-spacing: 2rpx;
 }
 
 .field--row .field__label {
@@ -297,7 +307,7 @@ function onSubmit() {
 .field__value {
   width: 100%;
   font-size: 30rpx;
-  color: #1f2328;
+  color: #3d2c26;
 }
 
 .field__textarea {
@@ -310,14 +320,14 @@ function onSubmit() {
 }
 
 .field__arrow {
-  color: #2f6b5a;
+  color: #b54738;
   font-size: 26rpx;
 }
 
 .field__tabs {
   display: flex;
-  background: #f4f2ee;
-  border-radius: 12rpx;
+  background: #f3e0d0;
+  border-radius: 16rpx;
   padding: 6rpx;
 }
 
@@ -326,23 +336,24 @@ function onSubmit() {
   text-align: center;
   height: 64rpx;
   line-height: 64rpx;
-  border-radius: 10rpx;
+  border-radius: 12rpx;
   font-size: 28rpx;
-  color: #6b6660;
+  color: #9a7366;
 }
 
 .field__tab--on {
-  background: #fff;
-  color: #2f6b5a;
+  background: #fff8f1;
+  color: #b54738;
   font-weight: 600;
 }
 
 .submit-btn {
   margin-top: 40rpx;
-  background: #2f6b5a;
-  color: #fff;
+  background: #b54738;
+  color: #fff8f1;
   border-radius: 44rpx;
   font-size: 30rpx;
+  letter-spacing: 4rpx;
 }
 
 .submit-btn::after {

@@ -13,6 +13,7 @@ dist
 unpackage
 .env
 *.local
+scripts/vendor
 
 # Editor directories and files
 .idea

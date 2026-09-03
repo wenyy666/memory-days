@@ -51,16 +51,16 @@
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "纪念日时间计算器",
-    "navigationBarBackgroundColor": "#F7F6F3",
-    "backgroundColor": "#F7F6F3",
+    "navigationBarBackgroundColor": "#F6E6D6",
+    "backgroundColor": "#EFD5C2",
     "enableShareAppMessage": true,
     "enableShareTimeline": true
   },
   "tabBar": {
-    "color": "#8A8580",
-    "selectedColor": "#2F6B5A",
-    "backgroundColor": "#FFFFFF",
-    "borderStyle": "black",
+    "color": "#B89A8C",
+    "selectedColor": "#B54738",
+    "backgroundColor": "#FFF8F1",
+    "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/index/index",

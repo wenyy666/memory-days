@@ -1,35 +1,48 @@
 page {
-  background: #f7f6f3;
-  color: #1f2328;
+  --paper: #f3e0d0;
+  --paper-deep: #ead3c0;
+  --card: #fff8f1;
+  --ink: #3d2c26;
+  --ink-soft: #9a7366;
+  --ink-faint: #c4a394;
+  --cinnabar: #b54738;
+  --cinnabar-deep: #8c3a32;
+  --gold: #c48a52;
+  --blush: #f8e4d4;
+  --line: rgba(141, 90, 62, 0.14);
+  background: #f3e0d0;
+  color: #3d2c26;
   font-size: 28rpx;
 }
 
 .page {
   min-height: 100vh;
-  padding: 24rpx 24rpx calc(180rpx + env(safe-area-inset-bottom));
+  padding: 12rpx 28rpx calc(200rpx + env(safe-area-inset-bottom));
   box-sizing: border-box;
+  background: linear-gradient(180deg, #f6e6d6 0%, #efd5c2 46%, #ead0bc 100%);
 }
 
 .card {
-  background: #ffffff;
-  border-radius: 20rpx;
-  padding: 28rpx;
-  box-shadow: 0 8rpx 24rpx rgba(47, 107, 90, 0.04);
+  background: var(--card);
+  border-radius: 28rpx;
+  padding: 32rpx;
+  border: 1rpx solid rgba(180, 120, 86, 0.16);
+  box-shadow: 0 16rpx 40rpx rgba(120, 62, 36, 0.06);
 }
 
 .section-title {
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: 600;
-  color: #1f2328;
-  margin-bottom: 16rpx;
+  color: var(--ink);
+  letter-spacing: 2rpx;
 }
 
 .muted {
-  color: #8a8580;
+  color: var(--ink-soft);
   font-size: 24rpx;
 }
 
 .primary-btn {
-  background: #2f6b5a;
-  color: #ffffff;
+  background: var(--cinnabar);
+  color: #fff8f1;
 }

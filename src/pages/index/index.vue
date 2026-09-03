@@ -3,6 +3,7 @@ import { onShareAppMessage, onShareTimeline, onShow } from '@dcloudio/uni-app'
 import { computed } from 'vue'
 import BannerAd from '@/components/BannerAd.vue'
 import EmptyState from '@/components/EmptyState.vue'
+import HomeHero from '@/components/HomeHero.vue'
 import MemorialList from '@/components/MemorialList.vue'
 import QuotaBar from '@/components/QuotaBar.vue'
 import { useAds } from '@/composables/useAds'
@@ -50,9 +51,9 @@ async function onAdd() {
 function confirmUnlock(): Promise<boolean> {
   return new Promise((resolve) => {
     uni.showModal({
-      title: '增加 1 条额度',
-      content: '免费最多保存 3 条。完整观看一次视频可增加 1 条，最多 20 条。已有记录不会删除。',
-      confirmText: '去观看',
+      title: '多记一个日子',
+      content: '免费可以记下 3 个。看完一段视频，就能再多写一条，最多 20 个。已经记下的不会消失。',
+      confirmText: '去看一看',
       success: (res) => resolve(Boolean(res.confirm)),
       fail: () => resolve(false)
     })
@@ -76,11 +77,11 @@ async function onExtend(id: string) {
   const current = views.value.find((item) => item.id === id)
   const confirmed = await new Promise<boolean>((resolve) => {
     uni.showModal({
-      title: '延续这条纪念日',
+      title: '为这条日子再续一段',
       content: current
-        ? `看完视频后，仅「${current.name}」的有效期再延续 30 天，其他记录不变。`
-        : '看完视频后，仅这条纪念日的有效期再延续 30 天。',
-      confirmText: '去观看',
+        ? `看完视频后，只把「${current.name}」再延长 30 天，其他日子不动。`
+        : '看完视频后，只把这一条再延长 30 天。',
+      confirmText: '去看一看',
       success: (res) => resolve(Boolean(res.confirm)),
       fail: () => resolve(false)
     })
@@ -100,9 +101,9 @@ async function onExtend(id: string) {
 
 function onRemove(id: string) {
   uni.showModal({
-    title: '删除纪念日',
-    content: '删除后无法恢复，确定删除吗？',
-    confirmColor: '#C45C4A',
+    title: '删除这个日子',
+    content: '删掉后无法恢复，确定吗？',
+    confirmColor: '#B54738',
     success: async (res) => {
       if (!res.confirm) return
       await removeMemorial(id)
@@ -118,6 +119,8 @@ onShow(() => {
 
 <template>
   <view class="page">
+    <HomeHero :next-item="views[0] || null" />
+
     <QuotaBar
       :used="count"
       :limit="limit"
@@ -128,9 +131,9 @@ onShow(() => {
 
     <EmptyState
       v-if="isEmpty"
-      title="还没有纪念日"
-      desc="记录生日、相识或重要日子，打开就能看到还有几天。"
-      action-text="添加第一条"
+      title="这一页还空着"
+      desc="生日、相识，或只是对你很重要的一天。写下来，以后打开就能看见还要多久。"
+      action-text="写下第一个日子"
       @action="onAdd"
     />
 
@@ -144,7 +147,7 @@ onShow(() => {
     />
 
     <view v-if="!isEmpty" class="fab" @click="onAdd">
-      <text class="fab__plus">+</text>
+      <text class="fab__plus">记</text>
     </view>
 
     <BannerAd v-if="hasBannerAd" :unit-id="bannerId" />
@@ -156,21 +159,22 @@ onShow(() => {
   position: fixed;
   right: 40rpx;
   bottom: calc(230rpx + env(safe-area-inset-bottom));
-  width: 104rpx;
-  height: 104rpx;
-  border-radius: 52rpx;
-  background: #2f6b5a;
+  width: 108rpx;
+  height: 108rpx;
+  border-radius: 54rpx;
+  background: radial-gradient(circle at 32% 28%, #d46858, #b54738 64%, #8c3a32);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 12rpx 24rpx rgba(47, 107, 90, 0.28);
+  box-shadow: 0 16rpx 28rpx rgba(140, 50, 40, 0.28);
   z-index: 9;
 }
 
 .fab__plus {
-  color: #fff;
-  font-size: 56rpx;
+  color: #fff4ea;
+  font-size: 36rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
   line-height: 1;
-  margin-top: -6rpx;
 }
 </style>

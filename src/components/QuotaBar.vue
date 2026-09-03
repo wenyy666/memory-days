@@ -12,20 +12,19 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <view class="quota-bar card">
-    <view class="quota-bar__main">
-      <text class="quota-bar__count">{{ used }} / {{ limit }}</text>
-      <text class="quota-bar__label">{{ atMax ? '已达上限' : limit > 3 ? '已扩展额度' : '免费额度' }}</text>
-    </view>
+  <view class="quota-bar">
+    <text class="quota-bar__copy">
+      {{ atMax ? `已记下 ${used} 个日子 · 本子已经写满` : `已记下 ${used} 个日子 · 还能再写 ${Math.max(limit - used, 0)} 个` }}
+    </text>
     <text
       v-if="atMax"
-      class="quota-bar__expire"
+      class="quota-bar__hint"
     >最多 20 条</text>
     <text
       v-else-if="showReward"
       class="quota-bar__action"
       @click="emit('unlock')"
-    >看视频 +1 条</text>
+    >多记一条</text>
   </view>
 </template>
 
@@ -34,28 +33,19 @@ const emit = defineEmits<{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22rpx 28rpx;
-  margin-bottom: 20rpx;
+  padding: 4rpx 8rpx 20rpx;
 }
 
-.quota-bar__count {
-  font-size: 32rpx;
-  font-weight: 700;
-  color: #2f6b5a;
-  margin-right: 12rpx;
-}
-
-.quota-bar__label,
-.quota-bar__expire {
-  font-size: 24rpx;
-  color: #8a8580;
+.quota-bar__copy,
+.quota-bar__hint {
+  font-size: 22rpx;
+  color: #9a7366;
 }
 
 .quota-bar__action {
-  font-size: 24rpx;
-  color: #2f6b5a;
-  padding: 8rpx 18rpx;
-  border: 1rpx solid #2f6b5a;
-  border-radius: 24rpx;
+  font-size: 22rpx;
+  color: #b54738;
+  padding: 6rpx 0;
+  letter-spacing: 1rpx;
 }
 </style>
