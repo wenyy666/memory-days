@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { onLoad } from '@dcloudio/uni-app'
+import { onLoad, onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
 import { ref, shallowRef } from 'vue'
 import MemorialForm from '@/components/MemorialForm.vue'
 import { useAds } from '@/composables/useAds'
 import { useMemorials } from '@/composables/useMemorials'
+import { shareMessage, shareTimeline, useShare } from '@/composables/useShare'
 import type { Memorial, MemorialDraft } from '@/types/memorial'
 
 const { getById, saveMemorial, canAdd, count, loadMemorials } = useMemorials()
 const { hasRewardAd, watchRewardAndUnlock } = useAds()
+useShare()
+onShareAppMessage(() => shareMessage())
+onShareTimeline(() => shareTimeline())
 const memorial = ref<Memorial | null>(null)
 const ready = shallowRef(false)
 

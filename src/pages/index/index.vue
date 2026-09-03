@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onShow } from '@dcloudio/uni-app'
+import { onShareAppMessage, onShareTimeline, onShow } from '@dcloudio/uni-app'
 import { computed } from 'vue'
 import BannerAd from '@/components/BannerAd.vue'
 import EmptyState from '@/components/EmptyState.vue'
@@ -7,7 +7,7 @@ import MemorialList from '@/components/MemorialList.vue'
 import QuotaBar from '@/components/QuotaBar.vue'
 import { useAds } from '@/composables/useAds'
 import { useMemorials } from '@/composables/useMemorials'
-import { useShare } from '@/composables/useShare'
+import { shareMessage, shareTimeline, useShare } from '@/composables/useShare'
 
 const {
   views,
@@ -21,6 +21,8 @@ const {
 } = useMemorials()
 const { bannerId, hasRewardAd, hasBannerAd, watchRewardAndUnlock, watchRewardAndExtend } = useAds()
 useShare()
+onShareAppMessage(() => shareMessage())
+onShareTimeline(() => shareTimeline())
 
 const isEmpty = computed(() => count.value === 0)
 

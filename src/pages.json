@@ -34,13 +34,17 @@
     {
       "path": "pages/edit/edit",
       "style": {
-        "navigationBarTitleText": "纪念日"
+        "navigationBarTitleText": "纪念日",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {
       "path": "pages/privacy/privacy",
       "style": {
-        "navigationBarTitleText": "隐私说明"
+        "navigationBarTitleText": "隐私说明",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     }
   ],
@@ -48,7 +52,9 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "纪念日时间计算器",
     "navigationBarBackgroundColor": "#F7F6F3",
-    "backgroundColor": "#F7F6F3"
+    "backgroundColor": "#F7F6F3",
+    "enableShareAppMessage": true,
+    "enableShareTimeline": true
   },
   "tabBar": {
     "color": "#8A8580",

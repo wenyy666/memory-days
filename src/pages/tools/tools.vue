@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import { onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
 import { computed, ref, shallowRef } from 'vue'
 import BannerAd from '@/components/BannerAd.vue'
 import { useAds } from '@/composables/useAds'
-import { useShare } from '@/composables/useShare'
+import { shareMessage, shareTimeline, useShare } from '@/composables/useShare'
 import { diffDays, formatSolar, today } from '@/utils/date'
 import { formatLunar, lunarToSolar, solarToLunar } from '@/utils/lunar'
 
-useShare('日期换算')
+useShare()
+onShareAppMessage(() => shareMessage('日期换算'))
+onShareTimeline(() => shareTimeline('日期换算'))
 const { bannerId, hasBannerAd } = useAds()
 
 const now = today()

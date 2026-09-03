@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import { onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
+import { shareMessage, shareTimeline, useShare } from '@/composables/useShare'
+
+useShare()
+onShareAppMessage(() => shareMessage())
+onShareTimeline(() => shareTimeline())
 </script>
 
 <template>
